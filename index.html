@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Keyboard</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+   <div class="mute" style="display: flex; flex-direction: column; justify-content: center;">
+    <label for="" style="color: aliceblue; font-size: 25px; margin-left: 5px;">Mute</label>
+    <input type="checkbox" style="width: 50px; height: 50px;" id="mute-box" onchange="mute()"/>
+   </div>
+    <div class="rec">
+       
+      <div class="alpha">
+        <div class="lineOne">
+          <span id="a" data-value="/click.mp3" >A</span>
+          <span id="b" data-value="/click.mp3">B</span>
+          <span id="c" data-value="/click.mp3">C</span>
+          <span id="d" data-value="/click.mp3">D</span>
+          <span id="e" data-value="/click.mp3">E</span>
+          <span id="f" data-value="/click.mp3">F</span>
+          <span id="g" data-value="/click.mp3">G</span>
+          <span id="h" data-value="/click.mp3">H</span>
+          <span id="i" data-value="/click.mp3">I</span>
+          <span id="j" data-value="/click.mp3">J</span>
+        </div>
+        <div class="lineTwo">
+          <span id="k" data-value="/click.mp3">K</span>
+          <span id="l" data-value="/click.mp3">L</span>
+          <span id="m" data-value="/click.mp3">M</span>
+          <span id="n" data-value="/click.mp3">N</span>
+          <span id="o" data-value="/click.mp3">O</span>
+
+          <span id="p" data-value="/click.mp3">P</span>
+          <span id="q" data-value="/click.mp3">Q</span>
+          <span id="r" data-value="/click.mp3">R</span>
+          <span id="s" data-value="/click.mp3">S</span>
+          <span id="t" data-value="/click.mp3">T</span>
+        </div>
+         <div class="lineThree">
+          <span id="u" data-value="/click.mp3">U</span>
+          <span id="v" data-value="/click.mp3">V</span>
+          <span id="w" data-value="/click.mp3">W</span>
+          <span id="x" data-value="/click.mp3">X</span>
+          <span id="y" data-value="/click.mp3">Y</span>
+          <span id="z" data-value="/click.mp3">Z</span>
+          
+        </div>
+        <div class="num">
+          <span id="1">1</span>
+          <span id="2">2</span>
+          <span id="3">3</span>
+          <span id="4">4</span>
+          <span id="5">5</span>
+          <span id="6">6</span>
+          <span id="7">7</span>
+          <span id="8">8</span>
+          <span id="9">9</span>
+          <span id="0">0</span>
+        </div>
+        <div class="space">
+            <p id="space" data-value="/click.mp3">SPACE</p>
+            
+          </div>
+      </div>
+
+    </div>
+    <input
+      id="typing"
+      type="text"
+      placeholder="type Here"
+      title="keyboard"
+      oninput="typingFun()"
+    />
+
+    <script>
+      
+        let muteS ;
+        function mute(){
+            if(muteS){
+                muteS=false
+            }else{
+                muteS=true
+            }
+       console.log(muteS);
+        }
+       
+      const typing = document.getElementById("typing");
+      function typingFun(){
+       typing.placeholder = typing.value
+      
+       if(typing.value !==" "){
+        var audio = document.getElementById('audio');
+  //get source by id
+  var source = document.getElementById('audioSource');
+
+  //set source to current data-value attribute of of element where function is being called
+  source.src = document.getElementById((typing.value).toLowerCase()).getAttribute('data-value');
+
+  //load
+  if(!muteS){
+
+      audio.load();
+      //play  
+      audio.play();
+  }
+           document.getElementById((typing.value).toLowerCase()).style.backgroundColor="red"
+           remove(typing.value)
+           typing.value=""
+       }else{
+        document.getElementById(('space').toLowerCase()).style.backgroundColor="red"
+           remove('space')
+           typing.value=""
+       }
+
+
+      }
+      function remove(char){
+        setTimeout(()=>{
+
+            document.getElementById(char).style.backgroundColor=""
+        },100)
+      }
+    </script>
+     <audio id="audio">
+        <source id="audioSource" src=""></source>
+      </audio>
+  </body>
+</html>
